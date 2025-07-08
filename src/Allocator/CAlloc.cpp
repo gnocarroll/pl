@@ -6,7 +6,7 @@
 #include "Constants.h"
 #include "Util/Mem.h"
 
-static Allocator cAllocator;
+static Allocator::Allocator cAllocator;
 
 template <typename T>
 static bool isPowerOf2(T x) {
