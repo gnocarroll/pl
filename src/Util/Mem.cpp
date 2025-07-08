@@ -1,5 +1,6 @@
 #include "Util/Mem.h"
 
+#include <stddef.h>
 #include <stdint.h>
 
 namespace Util {
