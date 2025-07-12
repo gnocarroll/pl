@@ -1,15 +1,20 @@
 #include "Util/CMem.h"
 
+#include "CIntDef.h"
 #include "Util/Mem.h"
 
-void* memcpy(void* dest, const void* src, size_t count) {
-	return Util::MemoryCopy(dest, src, count);
-}
+extern "C" {
 
-void* memove(void* dest, const void* src, size_t count) {
-	return Util::MemoryMove(dest, src, count);
-}
+	void* memcpy(void* dest, const void* src, USize count) {
+		return Util::MemoryCopy(dest, src, count);
+	}
 
-void* memset(void* dest, int c, size_t count) {
-	return Util::MemorySet(dest, c, count);
+	void* memmove(void* dest, const void* src, USize count) {
+		return Util::MemoryMove(dest, src, count);
+	}
+
+	void* memset(void* dest, int c, USize count) {
+		return Util::MemorySet(dest, c, count);
+	}
+
 }

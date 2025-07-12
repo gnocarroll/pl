@@ -12,8 +12,4 @@ namespace Util {
 	RemoveReferenceType<T>&& move(T&& t) noexcept {
 		return static_cast<RemoveReferenceType<T>&&>(t);
 	}
-
-	void *memcpy(void* dest, const void* src, size_t count);
-	void* memset(void* ptr, int c, size_t n);
-	void* memmove(void* dest, const void* src, size_t count);
 }

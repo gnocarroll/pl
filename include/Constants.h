@@ -1,8 +1,10 @@
 #pragma once
 
-#include <stddef.h>
+#include "IntDef.h"
+
+using namespace IntDef;
 
 namespace Constants {
-	extern size_t PAGE_SIZE;
-	constexpr size_t SIZE_MAX = (size_t)-1;
+	extern USize PAGE_SIZE;
+	constexpr USize SIZE_MAX = (USize)-1;
 }

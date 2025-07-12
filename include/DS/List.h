@@ -1,23 +1,22 @@
 #pragma once
 
-#include <initializer_list>
-
-#include <Alg.h>
-#include <DS/Option.h>
-#include <Util.h>
+#include "Alg.h"
+#include "DS/Option.h"
+#include "IntDef.h"
+#include "Util/Util.h"
 
 namespace DS {
 
 	template <typename T>
 	class List {
-		constexpr static size_t GROW_FACTOR = 2;
+		constexpr static USize GROW_FACTOR = 2;
 
 		T* buffer = nullptr;
 
-		size_t used = 0;
-		size_t capacity = 0;
+		USize used = 0;
+		USize capacity = 0;
 
-		void initBufferWithCapacity(size_t capacity) {
+		void initBufferWithCapacity(USize capacity) {
 			buffer = new T[capacity];
 
 			this->capacity = capacity;
@@ -30,7 +29,7 @@ namespace DS {
 
 			T* newBuffer = new T[capacity];
 
-			for (size_t i = 0; i < used; i++) {
+			for (USize i = 0; i < used; i++) {
 				newBuffer[i] = Util::move(buffer[i]);
 			}
 
@@ -43,7 +42,7 @@ namespace DS {
 
 		constexpr List() {}
 
-		List(size_t size) {
+		List(USize size) {
 			initBufferWithCapacity(size);
 
 			used = size;
@@ -55,26 +54,12 @@ namespace DS {
 			}
 		}
 
-		List(std::initializer_list<T> elements) {
-			initBufferWithCapacity(elements.size());
-
-			size_t index = 0;
-
-			for (const auto& element : elements) {
-				buffer[index] = Util::move(element);
-
-				index++;
-			}
-
-			used = elements.size();
-		}
-
 		List(List& other) {
 			initBufferWithCapacity(other.used);
 
 			used = other.used;
 
-			for (size_t i = 0; i < used; i++) {
+			for (USize i = 0; i < used; i++) {
 				buffer[i] = other[i];
 			}
 		}
@@ -95,7 +80,7 @@ namespace DS {
 			return buffer + used;
 		}
 
-		size_t size() const {
+		USize size() const {
 			return used;
 		}
 
@@ -123,11 +108,11 @@ namespace DS {
 			return Util::move(buffer[used]);
 		}
 
-		const T& operator[](size_t index) const {
+		const T& operator[](USize index) const {
 			return buffer[index];
 		}
 
-		T& operator[](size_t index) {
+		T& operator[](USize index) {
 			return buffer[index];
 		}
 	};

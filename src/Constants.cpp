@@ -12,16 +12,16 @@
 
 namespace Constants {
 #if defined(_POSIX_VERSION)
-	size_t PAGE_SIZE = (size_t) get_page_size();
+	USize PAGE_SIZE = (USize) get_page_size();
 #elif defined(_WIN32)
-	static size_t getPageSizeWin32() {
+	static USize getPageSizeWin32() {
 		SYSTEM_INFO systemInfo;
 
 		GetNativeSystemInfo(&systemInfo);
 
-		return (size_t) systemInfo.dwPageSize;
+		return (USize) systemInfo.dwPageSize;
 	}
 
-	size_t PAGE_SIZE = getPageSizeWin32();
+	USize PAGE_SIZE = getPageSizeWin32();
 #endif
 }

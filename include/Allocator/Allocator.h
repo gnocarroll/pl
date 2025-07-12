@@ -1,25 +1,32 @@
 #pragma once
 
-#include <stddef.h>
-
 #include "Constants.h"
+#include "IntDef.h"
+
+using namespace IntDef;
 
 namespace Allocator {
 	/// <summary>
 	/// size of requests made to OS for more memory
 	/// </summary>
-	extern size_t ARENA_SIZE;
+	extern USize ARENA_SIZE;
 
 	class BasicAllocator {
 		struct BlockHeader {
-			static constexpr size_t FLAGS_MASK = 0b1111;
-			static inline size_t SIZE_MASK = ~FLAGS_MASK;
+			static constexpr USize N_FLAG_BITS = 4;
 
-			size_t sizeAndFlags;
-			size_t leftSize;
+			static constexpr USize FLAGS_MASK = (1 << N_FLAG_BITS) - 1;
+			static constexpr USize SIZE_MASK = (~FLAGS_MASK);
+
+			enum BlockFlags {
+				Free
+			};
+
+			USize sizeAndFlags = sizeof(BlockHeader);
+			USize leftSize = 0;
 
 			union {
-				BlockHeader* nextHeader;
+				BlockHeader* nextHeader = nullptr;
 				char marker;
 			};
 
@@ -27,25 +34,24 @@ namespace Allocator {
 				return &marker;
 			}
 
-			size_t getSize() {
+			USize getSize() {
 				return sizeAndFlags & SIZE_MASK;
 			}
-			size_t getFlags() {
+			USize getFlags() {
 				return sizeAndFlags & FLAGS_MASK;
 			}
-			size_t getLeftSize() {
+			USize getLeftSize() {
 				return leftSize;
 			}
-			void setLeftSize(size_t leftSize) {
+			void setLeftSize(USize leftSize) {
 				this->leftSize = leftSize;
 			}
-			void setSize(size_t size) {
+			void setSize(USize size) {
 				sizeAndFlags &= (size & SIZE_MASK);
 			}
-			void setFlags(size_t flags) {
+			void setFlags(USize flags) {
 				sizeAndFlags &= (flags & FLAGS_MASK);
 			}
-			
 		};
 
 		
@@ -53,8 +59,8 @@ namespace Allocator {
 	public:
 		BasicAllocator() {}
 
-		void* alloc(size_t count);
-		void* alignedAlloc(size_t alignment, size_t count);
+		void* alloc(USize count);
+		void* alignedAlloc(USize alignment, USize count);
 		void free(void* ptr);
 	};
 }
