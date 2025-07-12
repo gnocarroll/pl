@@ -30,7 +30,10 @@
     <ClCompile Include="src\Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Allocator\Allocator.cpp">
+    <ClCompile Include="src\Allocator\BasicAllocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Util.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,7 +68,7 @@
     <ClInclude Include="include\Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Allocator\Allocator.h">
+    <ClInclude Include="include\Allocator\BasicAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\IntDef.h">

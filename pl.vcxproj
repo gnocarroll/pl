@@ -123,16 +123,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Allocator\Allocator.cpp" />
+    <ClCompile Include="src\Allocator\BasicAllocator.cpp" />
     <ClCompile Include="src\Allocator\CAlloc.cpp" />
     <ClCompile Include="src\Constants.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Util.cpp" />
     <ClCompile Include="src\Util\CMem.cpp" />
     <ClCompile Include="src\Util\Mem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Alg.h" />
-    <ClInclude Include="include\Allocator\Allocator.h" />
+    <ClInclude Include="include\Allocator\BasicAllocator.h" />
     <ClInclude Include="include\Allocator\malloc.h" />
     <ClInclude Include="include\CIntDef.h" />
     <ClInclude Include="include\Constants.h" />

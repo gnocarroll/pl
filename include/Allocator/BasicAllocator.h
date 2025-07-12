@@ -11,29 +11,36 @@ namespace Allocator {
 	/// </summary>
 	extern USize ARENA_SIZE;
 
+	struct MemoryRegion {
+		USize size = 0;
+		void* ptr = nullptr;
+	};
+
 	class BasicAllocator {
-		struct BlockHeader {
+		struct BlockMetadata {
 			static constexpr USize N_FLAG_BITS = 4;
 
 			static constexpr USize FLAGS_MASK = (1 << N_FLAG_BITS) - 1;
 			static constexpr USize SIZE_MASK = (~FLAGS_MASK);
 
-			enum BlockFlags {
-				Free
+			enum class BlockState {
+				Free = 0,
+				Allocated = 1,
 			};
 
-			USize sizeAndFlags = sizeof(BlockHeader);
+			enum class EdgeBlock {
+				Middle = 0,
+				Edge = 1,
+			};
+
+			static constexpr USize STATE_FLAG_IDX = 0;
+			static constexpr USize EDGE_FLAG_IDX = 1;
+		
+		private:
+			USize sizeAndFlags = sizeof(BlockMetadata);
 			USize leftSize = 0;
 
-			union {
-				BlockHeader* nextHeader = nullptr;
-				char marker;
-			};
-
-			char* data() {
-				return &marker;
-			}
-
+		public:
 			USize getSize() {
 				return sizeAndFlags & SIZE_MASK;
 			}
@@ -54,7 +61,24 @@ namespace Allocator {
 			}
 		};
 
-		
+		struct BlockHeader {
+			BlockMetadata metadata;
+
+			union {
+				BlockHeader* next = nullptr;
+			};
+
+			char* data() {
+				return ((char*) this) + sizeof(BlockMetadata);
+			}
+		};
+
+		MemoryRegion getMemFromOS(USize bytes);
+
+		static constexpr USize N_FREE_LISTS = 17;
+		static constexpr USize MIN_ALLOCATION_POW_2 = 4;
+
+		BlockHeader sentinels[N_FREE_LISTS];
 
 	public:
 		BasicAllocator() {}

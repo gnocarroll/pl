@@ -11,17 +11,4 @@ namespace Alg {
 
 		return rhs;
 	}
-
-	template <typename T>
-	const T& minOf(std::initializer_list<T> ilist) {
-		const T* ret = nullptr;
-
-		for (const auto& elem : ilist) {
-			if (ret == nullptr || elem < *ret) {
-				ret = &elem;
-			}
-		}
-
-		return *ret;
-	}
 }
