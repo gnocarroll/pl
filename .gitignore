@@ -3,6 +3,10 @@
 pl
 .vs
 
+# Visual Studio Code
+
+.vscode
+
 # Prerequisites
 *.d
 
