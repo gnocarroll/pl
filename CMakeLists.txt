@@ -5,5 +5,5 @@ project(ProgrammingLanguage
     DESCRIPTION "programming language"
     LANGUAGES C CXX)
 
-add_executable(pl src/main.cpp)
-target_include_directories(pl PUBLIC include)
+add_subdirectory(exesrc bin)
+add_subdirectory(libsrc lib)
